@@ -15,29 +15,34 @@ class TrialPlanSeeder extends Seeder
      */
     public function run(): void
     {
-        $usd = Currency::whereCurrencyCode('USD')->first()->id;
-        $input = [
-            'name' => 'Standard',
-            'currency_id' => $usd,
-            'price' => 10,
-            'frequency' => Plan::MONTHLY,
-            'is_default' => 1,
-            'trial_days' => 7,
-            'no_of_vcards' => 7,
-        ];
+        $usdCurrency = Currency::where('currency_code', 'USD')->first();
+        $usdId = $usdCurrency ? $usdCurrency->id : 1; 
 
-        $plan = Plan::create($input);
+        $plan = Plan::where('name', 'Standard')->first();
+        if (!$plan) {
+            $input = [
+                'name' => 'Standard',
+                'currency_id' => $usdId,
+                'price' => 10,
+                'frequency' => Plan::MONTHLY,
+                'is_default' => 1,
+                'trial_days' => 7,
+                'no_of_vcards' => 7,
+            ];
 
-        PlanFeature::create([
-            'plan_id' => $plan->id,
-            'products_services' => true,
-            'testimonials' => true,
-            'social_links' => true,
-            'enquiry_form' => true,
-            'custom_fonts' => true,
-        ]);
+            $plan = Plan::create($input);
 
-        $templateIds = Template::limit(5)->pluck('id')->toArray();
-        $plan->templates()->sync($templateIds);
+            PlanFeature::create([
+                'plan_id' => $plan->id,
+                'products_services' => true,
+                'testimonials' => true,
+                'social_links' => true,
+                'enquiry_form' => true,
+                'custom_fonts' => true,
+            ]);
+
+            $templateIds = Template::limit(5)->pluck('id')->toArray();
+            $plan->templates()->sync($templateIds);
+        }
     }
 }
