@@ -7,10 +7,19 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
+     * Disable migrations transaction for this file to see the real Postgres error.
+     */
+    public $withinTransaction = false;
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
+        if (Schema::hasTable('social_icon')) {
+            return;
+        }
+
         Schema::create('social_icon', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('social_link_id')->nullable();

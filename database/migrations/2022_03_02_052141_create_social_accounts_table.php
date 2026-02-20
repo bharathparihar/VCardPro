@@ -7,10 +7,19 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
+     * Disable migrations transaction for this file to see the real Postgres error.
+     */
+    public $withinTransaction = false;
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
+        if (Schema::hasTable('social_accounts')) {
+            return;
+        }
+
         Schema::create('social_accounts', function (Blueprint $table) {
             $table->increments('id', true);
             $table->string('tenant_id', 191);

@@ -7,10 +7,19 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
+     * Disable migrations transaction for this file to see the real Postgres error.
+     */
+    public $withinTransaction = false;
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
+        if (Schema::hasTable('wp_order_items')) {
+            return;
+        }
+
         Schema::create('wp_order_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('wp_order_id');

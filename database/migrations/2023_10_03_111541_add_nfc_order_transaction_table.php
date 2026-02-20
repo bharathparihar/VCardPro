@@ -7,10 +7,19 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
+     * Disable migrations transaction for this file to see the real Postgres error.
+     */
+    public $withinTransaction = false;
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
+        if (Schema::hasTable('nfc_order_transaction')) {
+            return;
+        }
+
         Schema::create('nfc_order_transaction', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('nfc_order_id');

@@ -7,10 +7,19 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
+     * Disable migrations transaction for this file to see the real Postgres error.
+     */
+    public $withinTransaction = false;
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
+        if (Schema::hasTable('whatsapp_store_term_conditions')) {
+            return;
+        }
+
         Schema::create('whatsapp_store_term_conditions', function (Blueprint $table) {
             $table->id();
             $table->longText('term_condition');

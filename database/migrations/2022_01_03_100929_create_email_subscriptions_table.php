@@ -7,10 +7,19 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
+     * Disable migrations transaction for this file to see the real Postgres error.
+     */
+    public $withinTransaction = false;
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
+        if (Schema::hasTable('email_subscriptions')) {
+            return;
+        }
+
         Schema::create('email_subscriptions', function (Blueprint $table) {
             $table->id();
             $table->string('email', 191)->unique();

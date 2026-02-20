@@ -7,10 +7,19 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
+     * Disable migrations transaction for this file to see the real Postgres error.
+     */
+    public $withinTransaction = false;
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
+        if (Schema::hasTable('dynamic_vcards')) {
+            return;
+        }
+
         Schema::create('dynamic_vcards', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('vcard_id');
