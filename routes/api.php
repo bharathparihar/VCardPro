@@ -78,12 +78,12 @@ Route::post('/login/google', [SocialAuthController::class, 'googleLogin']);
 Route::post(
     '/forgot-password',
     [AuthAPIController::class, 'sendPasswordResetLinkEmail']
-)->middleware('throttle:5,1')->name('password.email');
+)->middleware('throttle:5,1')->name('api.password.email');
 Route::post(
     '/password',
     [AuthAPIController::class, 'resetPassword']
 )->middleware('throttle:5,1')->name('set.password');
-Route::post('/reset-password', [AuthAPIController::class, 'changePassword'])->name('password.reset');
+Route::post('/reset-password', [AuthAPIController::class, 'changePassword'])->name('api.password.reset');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthAPIController::class, 'logout']);
@@ -397,7 +397,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Add Ons
     Route::get('add-ons', [AddOnAPIController::class, 'addOnsData']);
-    Route::post('addons/{id}/update', [AddOnAPIController::class, 'update'])->name('api.addon.update');
+    Route::post('add-on/{id}/update', [AddOnAPIController::class, 'update'])->name('api.addon.update');
     Route::post('/addon-extract-zip', [AddOnAPIController::class, 'extractZip'])->name('api.addOn.extractZip');
     Route::delete('/add-on-delete/{id}', [AddOnAPIController::class, 'destroy'])->name('api.addOn.delete');
 
