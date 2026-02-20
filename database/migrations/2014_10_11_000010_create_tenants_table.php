@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('tenants')) {
+            return;
+        }
+
         Schema::create('tenants', function (Blueprint $table) {
-            $table->string('id', 191)->primary();
+            $table->string('id')->primary();
             $table->string('tenant_username');
 
             // your custom columns may go here
