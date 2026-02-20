@@ -30,7 +30,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(1);
             $table->string('language')->default('en')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->password();
+            $table->string('password');
             $table->string('tenant_id');
             $table->rememberToken();
             $table->timestamps();
