@@ -146,7 +146,7 @@ Route::middleware(['freshInstall'])->group(function () {
     Route::get('subscription-iyzico', [IyzicoController::class, 'iyzicoSubscription'])->name('iyzico.subscription');
     Route::get('/get-available-days', [VcardController::class, 'getAvailableDays'])->name('get.available.days');
 
-    Route::middleware('auth', 'valid.user')->group(function () {
+    Route::middleware(['auth', 'valid.user'])->group(function () {
         // Update profile
         Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.setting');
         Route::get('/mode', [UserController::class, 'changeMode'])->name('mode.theme');
@@ -800,7 +800,7 @@ Route::middleware(['freshInstall'])->group(function () {
     //user delete
     Route::delete('/delete-data/{user}', [UserController::class, 'userDelete'])->name('delete-user');
 
-    Route::prefix('admin')->middleware('subscription', 'auth', 'valid.user', 'role:admin', 'multi_tenant')->group(function () {
+    Route::prefix('admin')->middleware(['subscription', 'auth', 'valid.user', 'role:admin', 'multi_tenant'])->group(function () {
 
         //user delete
 
@@ -943,7 +943,7 @@ Route::middleware(['freshInstall'])->group(function () {
     Route::get('vcards/{vcard}/contacts/pdf', [VcardController::class, 'downloadVcardContactsPdf'])->name('vcards.contacts.download.pdf');
     Route::get('vcards/{vcard}/contacts/xls', [VcardController::class, 'downloadVcardContactsXls'])->name('vcards.contacts.download.xls');
 
-    Route::middleware('auth', 'valid.user', 'role:super_admin', 'xss')->group(function () {
+    Route::middleware(['auth', 'valid.user', 'role:super_admin', 'xss'])->group(function () {
         Route::get('vcard1', function () {
             return view('vcards.vcard1');
         });
@@ -1144,15 +1144,15 @@ Route::middleware(['freshInstall'])->group(function () {
     ]);
 
     //whatsapp stores  URL
-    Route::get('whatsapp-store/{alias}', [WhatsappStoreController::class, 'show'])->name('whatsapp.store.show')->middleware('language', 'analytics', 'whatsappStoreSubscription');
-    Route::get('whatsapp-store/{alias}/products/{categoryId?}', [WhatsappStoreController::class, 'showProducts'])->name('whatsapp.store.products')->middleware('language', 'whatsappStoreSubscription');
-    Route::get('whatsapp-store/{alias}/{id}/product-details', [WhatsappStoreController::class, 'productDetails'])->name('whatsapp.store.product.details')->middleware('language', 'whatsappStoreSubscription');
+    Route::get('whatsapp-store/{alias}', [WhatsappStoreController::class, 'show'])->name('whatsapp.store.show')->middleware(['language', 'analytics', 'whatsappStoreSubscription']);
+    Route::get('whatsapp-store/{alias}/products/{categoryId?}', [WhatsappStoreController::class, 'showProducts'])->name('whatsapp.store.products')->middleware(['language', 'whatsappStoreSubscription']);
+    Route::get('whatsapp-store/{alias}/{id}/product-details', [WhatsappStoreController::class, 'productDetails'])->name('whatsapp.store.product.details')->middleware(['language', 'whatsappStoreSubscription']);
     Route::post('whatsapp-store/product-buy', [WhatsappStoreProductController::class, 'productBuy'])->name('whatsapp.store.product.buy');
 
     // WhatsApp Store Policy
-    Route::get('whatsapp-store/{alias}/terms-conditions', [WhatsappStoreController::class,'showTermsConditions'])->name('whatsapp.store.show-terms-conditions')->middleware('language', 'whatsappStoreSubscription');
-    Route::get('whatsapp-store/{alias}/privacy-policy', [WhatsappStoreController::class,'showPrivacyPolicy'])->name('whatsapp.store.show-privacy-policy')->middleware('language', 'whatsappStoreSubscription');
-    Route::get('whatsapp-store/{alias}/refund-cancellation', [WhatsappStoreController::class,'showRefundCancellation'])->name('whatsapp.store.show-refund-cancellation')->middleware('language', 'whatsappStoreSubscription');
+    Route::get('whatsapp-store/{alias}/terms-conditions', [WhatsappStoreController::class,'showTermsConditions'])->name('whatsapp.store.show-terms-conditions')->middleware(['language', 'whatsappStoreSubscription']);
+    Route::get('whatsapp-store/{alias}/privacy-policy', [WhatsappStoreController::class,'showPrivacyPolicy'])->name('whatsapp.store.show-privacy-policy')->middleware(['language', 'whatsappStoreSubscription']);
+    Route::get('whatsapp-store/{alias}/refund-cancellation', [WhatsappStoreController::class,'showRefundCancellation'])->name('whatsapp.store.show-refund-cancellation')->middleware(['language', 'whatsappStoreSubscription']);
     Route::get('whatsapp-store/{alias}/shipping-delivery', [WhatsappStoreController::class,'showShippingDelivery'])->name('whatsapp.store.show-shipping-delivery')->middleware('language', 'whatsappStoreSubscription');
 
     Route::get('whatsapp-stores/getCookie', [WhatsappStoreController::class, 'getCookie'])->name('whatsapp.store.getCookie');
