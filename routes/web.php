@@ -622,10 +622,10 @@ Route::middleware(['freshInstall'])->group(function () {
             //blog
             Route::resource('/blogs', BlogController::class);
             //AddOn
-            Route::get('/add-on', [AddOnController::class, 'index'])->name('addon.index');
-            Route::post('/add-on/{id}/update', [AddOnController::class, 'update'])->name('addon.update');
-            Route::post('/addon-extract-zip', [AddOnController::class, 'extractZip'])->name('addOn.extractZip');
-            Route::delete('/add-on-delete/{id}', [AddOnController::class, 'destroy'])->name('addOn.delete');
+            Route::get('/add-on', [AddOnController::class, 'index'])->name('web.addon.index');
+            Route::post('/add-on/{id}/update', [AddOnController::class, 'update'])->name('web.addon.update');
+            Route::post('/addon-extract-zip', [AddOnController::class, 'extractZip'])->name('web.addOn.extractZip');
+            Route::delete('/add-on-delete/{id}', [AddOnController::class, 'destroy'])->name('web.addOn.delete');
 
             Route::post('slug', [BlogController::class, 'slug'])->name('blog-slug');
             Route::post('/blogs/{blog}', [BlogController::class, 'updateBlogStatus'])->name('blog-status');
