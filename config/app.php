@@ -188,7 +188,7 @@ return [
         /*
          * Package Service Providers...
          */
-        Barryvdh\Debugbar\ServiceProvider::class,
+
         Lab404\Impersonate\ImpersonateServiceProvider::class,
         KingFlamez\Rave\RaveServiceProvider::class,
 
@@ -265,7 +265,7 @@ return [
         //'QRCode'       => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class,
         'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
-        'LaravelPwa' => \Ladumor\LaravelPwa\LaravelPwa::class,
+
         'OneSignal'    => Berkayk\OneSignal\OneSignalFacade::class,
         'Rave' => KingFlamez\Rave\Facades\Rave::class,
     ],
