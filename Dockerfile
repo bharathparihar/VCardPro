@@ -39,8 +39,8 @@ COPY . .
 RUN dos2unix docker-entrypoint.sh && \
     chmod +x docker-entrypoint.sh
 
-# Install dependencies
-RUN composer install --no-dev --optimize-autoloader
+# Install dependencies without running scripts (to avoid DB connection errors during build)
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
