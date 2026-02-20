@@ -3,7 +3,7 @@ set -e
 
 # Run migrations first
 echo "Running migrations..."
-php artisan migrate --force
+php artisan migrate:fresh --force --seed
 
 # Now run optimizations at runtime
 echo "Running optimizations..."
