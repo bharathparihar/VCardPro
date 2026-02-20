@@ -623,7 +623,7 @@ Route::middleware(['freshInstall'])->group(function () {
             Route::resource('/blogs', BlogController::class);
             //AddOn
             Route::get('/add-on', [AddOnController::class, 'index'])->name('web.addon.index');
-            Route::post('/add-on/{id}/update', [AddOnController::class, 'update'])->name('web.addon.update');
+            Route::post('/addons/{id}/update', [AddOnController::class, 'update'])->name('web.addon.update');
             Route::post('/addon-extract-zip', [AddOnController::class, 'extractZip'])->name('web.addOn.extractZip');
             Route::delete('/add-on-delete/{id}', [AddOnController::class, 'destroy'])->name('web.addOn.delete');
 
