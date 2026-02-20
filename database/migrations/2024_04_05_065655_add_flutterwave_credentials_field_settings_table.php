@@ -19,9 +19,11 @@ return new class extends Migration
     {
         Setting::create([
             'key' => 'flutterwave_key',
+            'value' => '',
         ]);
         Setting::create([
             'key' => 'flutterwave_secret',
+            'value' => '',
         ]);
     }
 };
