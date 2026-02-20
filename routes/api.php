@@ -397,9 +397,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Add Ons
     Route::get('add-ons', [AddOnAPIController::class, 'addOnsData']);
-    Route::post('add-on/{id}/update', [AddOnAPIController::class, 'update'])->name('addon.update');
-    Route::post('/addon-extract-zip', [AddOnAPIController::class, 'extractZip'])->name('addOn.extractZip');
-    Route::delete('/add-on-delete/{id}', [AddOnAPIController::class, 'destroy'])->name('addOn.delete');
+    Route::post('add-on/{id}/update', [AddOnAPIController::class, 'update'])->name('api.addon.update');
+    Route::post('/addon-extract-zip', [AddOnAPIController::class, 'extractZip'])->name('api.addOn.extractZip');
+    Route::delete('/add-on-delete/{id}', [AddOnAPIController::class, 'destroy'])->name('api.addOn.delete');
 
     //Slack Integration AddOns
     if (moduleExists('SlackIntegration'))
