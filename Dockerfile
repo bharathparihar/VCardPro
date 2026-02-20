@@ -13,10 +13,11 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
-    dos2unix
+    libicu-dev \
+    dos2unix \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Clear cache (Handled in previous RUN command)
 
 # Install extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
