@@ -14,20 +14,35 @@ class CountriesSeeder extends Seeder
      */
     public function run(): void
     {
-        $countries = file_get_contents(resource_path('files/countries/countries.json'));
-        $countries = json_decode($countries, true)['countries'];
-        Country::insert($countries);
+        if (Country::exists()) {
+            $this->command->info('Countries table already seeded. Skipping.');
+        } else {
+            $countries = file_get_contents(resource_path('files/countries/countries.json'));
+            $countries = json_decode($countries, true)['countries'];
+            Country::insert($countries);
+            $this->command->info('Countries seeded.');
+        }
 
-        $states = file_get_contents(resource_path('files/countries/states.json'));
-        $states = json_decode($states, true)['states'];
-        State::insert($states);
+        if (State::exists()) {
+            $this->command->info('States table already seeded. Skipping.');
+        } else {
+            $states = file_get_contents(resource_path('files/countries/states.json'));
+            $states = json_decode($states, true)['states'];
+            State::insert($states);
+            $this->command->info('States seeded.');
+        }
 
-        $cities = file_get_contents(resource_path('files/countries/cities.json'));
-        $cities = json_decode($cities, true)['cities'];
-        collect($cities)
-            ->chunk(500)
-            ->each(function ($city) {
-                City::insert($city->toArray());
-            });
+        if (City::exists()) {
+            $this->command->info('Cities table already seeded. Skipping.');
+        } else {
+            $cities = file_get_contents(resource_path('files/countries/cities.json'));
+            $cities = json_decode($cities, true)['cities'];
+            collect($cities)
+                ->chunk(1000)
+                ->each(function ($chunk) {
+                    City::insert($chunk->toArray());
+                });
+            $this->command->info('Cities seeded.');
+        }
     }
 }

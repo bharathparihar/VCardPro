@@ -3,7 +3,7 @@ set -e
 
 # Run migrations first
 echo "Running migrations..."
-php artisan migrate:fresh --force --seed
+php -d memory_limit=-1 artisan migrate --force
 
 # Now run optimizations at runtime
 echo "Running optimizations..."

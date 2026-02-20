@@ -401,7 +401,7 @@ class ShortCodeSeeder extends Seeder
             ],
         ];
         foreach ($shortCodes as $shortCode) {
-            ShortCode::create($shortCode);
+            ShortCode::updateOrCreate($shortCode);
         }
     }
 }

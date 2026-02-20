@@ -17,9 +17,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('short_code', function (Blueprint $table) {
-            Artisan::call('db:seed', ['--class' => 'ShortCodeSeeder', '--force' => true]);
-        });
+        Artisan::call('db:seed', ['--class' => 'ShortCodeSeeder', '--force' => true]);
     }
 
     /**
