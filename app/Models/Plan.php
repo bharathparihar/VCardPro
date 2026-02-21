@@ -89,6 +89,7 @@ class Plan extends Model
         'trial_days' => 'integer',
         'no_of_vcards' => 'integer',
         'storage_limit' => 'integer',
+        'status' => 'integer',
     ];
 
     const IS_DEFAULT = 1;

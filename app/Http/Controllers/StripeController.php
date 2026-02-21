@@ -101,14 +101,14 @@ class StripeController extends AppBaseController
             ]);
 
             Subscription::whereTenantId(getLogInTenantId())
-                ->whereIsActive(true)->update(['is_active' => false]);
+                ->whereIsActive(1)->update(['is_active' => 0]);
 
             $expiryDate = setExpiryDate($plan);
 
             Subscription::create([
                 'plan_id' => $plan->id,
                 'expiry_at' => $expiryDate,
-                'is_active' => true,
+                'is_active' => 1,
             ]);
 
             AffiliateUser::whereUserId(getLogInUserId())->withoutGlobalScopes()

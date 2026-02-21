@@ -39,7 +39,7 @@ class TwofactorAuthenticationController extends AppBaseController
         }
         $user = auth()->user();
         $user->google2fa_secret = $request->secret_key;
-        $user->enable_two_factor_authentication = true;
+        $user->enable_two_factor_authentication = 1;
         $user->save();
 
         if ($user->save()) {
@@ -60,7 +60,7 @@ class TwofactorAuthenticationController extends AppBaseController
             return $this->sendError(__('messages.two_factor_auth.invalid_authentication_code'));
         }
         $user->google2fa_secret = null;
-        $user->enable_two_factor_authentication = false;
+        $user->enable_two_factor_authentication = 0;
         $user->save();
         return $this->sendSuccess(__('messages.two_factor_auth.two_factor_authentication_has_been_disabled'));
     }

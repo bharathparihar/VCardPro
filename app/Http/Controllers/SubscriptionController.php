@@ -144,13 +144,13 @@ class SubscriptionController extends AppBaseController
             DB::beginTransaction();
 
             Subscription::whereTenantId(getLogInTenantId())
-                ->whereIsActive(true)->update(['is_active' => false]);
+                ->whereIsActive(1)->update(['is_active' => 0]);
 
             $expiryDate = setExpiryDate($plan);
             Subscription::create([
                 'plan_id' => $plan->id,
                 'ends_at' => $expiryDate,
-                'status' => true,
+                'status' => Subscription::ACTIVE,
             ]);
 
             DB::commit();
