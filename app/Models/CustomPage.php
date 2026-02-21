@@ -22,7 +22,7 @@ class CustomPage extends Model
         'title' => 'string',
         'slug' => 'string',
         'description' => 'string',
-        'status' => 'boolean',
+        'status' => 'integer',
         'seo_title' => 'string',
         'seo_description' => 'string',
         'seo_keyword' => 'string',

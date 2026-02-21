@@ -64,6 +64,10 @@ class CouponCode extends Model
         self::INACTIVE => 'InActive',
     ];
 
+    protected $casts = [
+        'status' => 'integer',
+    ];
+
     protected $appends = ['is_expired'];
 
     public function getIsExpiredAttribute()

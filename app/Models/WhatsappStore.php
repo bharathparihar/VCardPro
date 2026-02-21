@@ -52,6 +52,10 @@ class WhatsappStore extends Model implements HasMedia
         'cover_url',
     ];
 
+    protected $casts = [
+        'status' => 'integer',
+    ];
+
     const FONT_FAMILY = [
         'Poppins' => 'Default',
         'Roboto' => 'Roboto',

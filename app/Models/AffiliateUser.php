@@ -46,7 +46,7 @@ class AffiliateUser extends Model
         parent::boot();
 
         static::addGlobalScope('verifiedUser', function (Builder $builder) {
-            $builder->whereIsVerified(true);
+            $builder->whereIsVerified(1);
         });
     }
 

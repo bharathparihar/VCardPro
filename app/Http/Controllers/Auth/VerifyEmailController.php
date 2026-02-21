@@ -32,12 +32,12 @@ class VerifyEmailController extends Controller
 
         if ($user->markEmailAsVerified()) {
             $affiliateUser = AffiliateUser::withoutGlobalScope('verifiedUser')
-                ->whereIsVerified(false)
+                ->whereIsVerified(0)
                 ->whereUserId($user->id)
                 ->first();
 
             if ($affiliateUser) {
-                $affiliateUser->update(['is_verified' => true]);
+                $affiliateUser->update(['is_verified' => 1]);
             }
 
             event(new Verified($request->user()));
@@ -61,12 +61,12 @@ class VerifyEmailController extends Controller
             $user->save();
 
             $affiliateUser = AffiliateUser::withoutGlobalScope('verifiedUser')
-                ->whereIsVerified(false)
+                ->whereIsVerified(0)
                 ->whereUserId($user->id)
                 ->first();
 
             if ($affiliateUser) {
-                $affiliateUser->update(['is_verified' => true]);
+                $affiliateUser->update(['is_verified' => 1]);
             }
 
             $verifiedUser->delete();

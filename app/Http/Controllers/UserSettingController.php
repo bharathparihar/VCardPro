@@ -106,7 +106,7 @@ class UserSettingController extends AppBaseController
         CustomDomain::create([
             'user_id' => $id,
             'domain' => $request->domain,
-            'is_approved' => false
+            'is_approved' => 0
         ]);
 
         Flash::success(__('Custom domain Applied successfully'));

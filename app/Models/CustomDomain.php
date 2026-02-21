@@ -35,6 +35,12 @@ class CustomDomain extends Model
         self::REJECTED => 'Rejected',
     ];
 
+    protected $casts = [
+        'is_approved' => 'integer',
+        'is_active' => 'integer',
+        'is_use_vcard' => 'integer',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
