@@ -3,9 +3,31 @@ set -e
 
 # FORCE Laravel to use PostgreSQL and clear any old cached config
 echo "Initial cleanup..."
-export DB_CONNECTION=pgsql
 php artisan config:clear || true
 php artisan cache:clear || true
+
+# Parse DATABASE_URL if it exists (highly reliable for Render/Heroku)
+if [ -n "$DATABASE_URL" ]; then
+    echo "Parsing DATABASE_URL for DB configuration..."
+    eval $(php -r '
+        $url = parse_url(getenv("DATABASE_URL"));
+        if (isset($url["host"])) echo "export DB_HOST=" . $url["host"] . "\n";
+        if (isset($url["port"])) echo "export DB_PORT=" . $url["port"] . "\n";
+        if (isset($url["path"])) echo "export DB_DATABASE=" . ltrim($url["path"], "/") . "\n";
+        if (isset($url["user"])) echo "export DB_USERNAME=" . $url["user"] . "\n";
+        if (isset($url["pass"])) echo "export DB_PASSWORD=" . $url["pass"] . "\n";
+    ')
+    export DB_CONNECTION=pgsql
+    # Force SSL mode for production databases if not set
+    if [ -z "$DB_SSLMODE" ]; then
+        export DB_SSLMODE=require
+    fi
+fi
+
+if [ -z "$APP_URL" ] && [ -n "$RENDER_EXTERNAL_URL" ]; then
+    export APP_URL="$RENDER_EXTERNAL_URL"
+    echo "Set APP_URL from RENDER_EXTERNAL_URL: $APP_URL"
+fi
 
 if [ -n "$APP_URL" ] && ! echo "$APP_URL" | grep -q "://"; then
     export APP_URL="https://$APP_URL"
@@ -13,6 +35,8 @@ if [ -n "$APP_URL" ] && ! echo "$APP_URL" | grep -q "://"; then
 fi
 
 echo "Forcing DB_CONNECTION: $DB_CONNECTION"
+echo "Current DB_HOST: $DB_HOST"
+echo "Current DB_DATABASE: $DB_DATABASE"
 
 # Wait for DB to wake up
 echo "Waiting for database connection..."
