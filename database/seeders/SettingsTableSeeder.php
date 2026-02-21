@@ -16,16 +16,25 @@ class SettingsTableSeeder extends Seeder
         $faviconUrl = ('/web/media/logos/favicon-infyom.png');
         $registerImage = ('assets/images/default-register.png');
 
-        Setting::create(['key' => 'app_name', 'value' => 'InfyVCards-SaaS']);
-        Setting::create(['key' => 'app_logo', 'value' => $appLogoUrl]);
-        Setting::create(['key' => 'favicon', 'value' => $faviconUrl]);
-        Setting::create(['key' => 'register_image', 'value' => $registerImage]);
-        Setting::create(['key' => 'email', 'value' => 'vcards@gmail.com']);
-        Setting::create(['key' => 'phone', 'value' => '9876543210']);
-        Setting::create(['key' => 'address',
-            'value' => 'C-303, Atlanta Shopping Mall, Nr. Sudama Chowk, Mota Varachha, Surat - 394101, Gujarat, India.',
-        ]);
-        Setting::create(['key' => 'prefix_code', 'value' => '91']);
-        Setting::create(['key' => 'plan_expire_notification', 'value' => '5']);
+        $settings = [
+            ['key' => 'app_name', 'value' => 'VCardPro'],
+            ['key' => 'app_logo', 'value' => $appLogoUrl],
+            ['key' => 'favicon', 'value' => $faviconUrl],
+            ['key' => 'register_image', 'value' => $registerImage],
+            ['key' => 'email', 'value' => 'admin@vcardpro.com'],
+            ['key' => 'phone', 'value' => '9876543210'],
+            ['key' => 'address', 'value' => 'Surat, India.'],
+            ['key' => 'prefix_code', 'value' => '91'],
+            ['key' => 'plan_expire_notification', 'value' => '5'],
+            ['key' => 'is_front_page', 'value' => '1'],
+            ['key' => 'home_page_theme', 'value' => '1'],
+            ['key' => 'default_currency', 'value' => 'USD'],
+            ['key' => 'currency_after_amount', 'value' => '0'],
+            ['key' => 'datetime_method', 'value' => '1'],
+        ];
+
+        foreach ($settings as $setting) {
+            Setting::updateOrCreate(['key' => $setting['key']], $setting);
+        }
     }
 }

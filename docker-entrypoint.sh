@@ -3,6 +3,10 @@ set -e
 
 # Run migrations first
 echo "Running migrations..."
+if [ -n "$APP_URL" ] && ! echo "$APP_URL" | grep -q "://"; then
+    export APP_URL="https://$APP_URL"
+    echo "Fixed APP_URL: $APP_URL"
+fi
 php -d memory_limit=-1 artisan migrate --force
 
 # Now run optimizations at runtime
