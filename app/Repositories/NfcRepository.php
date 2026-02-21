@@ -9,7 +9,7 @@ use App\Repositories\BaseRepository;
 use Yajra\DataTables\Exceptions\Exception;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
-class nfcRepository extends BaseRepository
+class NfcRepository extends BaseRepository
 {
     /**
      * @var array

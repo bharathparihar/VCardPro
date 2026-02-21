@@ -54,4 +54,6 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 EXPOSE 80
 
 # Start Application via Entrypoint script
-ENTRYPOINT ["./docker-entrypoint.sh"]
+COPY vcard-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/vcard-entrypoint.sh
+ENTRYPOINT ["vcard-entrypoint.sh"]

@@ -5,7 +5,7 @@ services:
     plan: free
     region: oregon 
     buildCommand: docker build -t vcards .
-    startCommand: ./docker-entrypoint.sh
+    startCommand: vcard-entrypoint.sh
     envVars:
       - key: APP_KEY
         sync: false

@@ -18,7 +18,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Mail\SubscriptionPaymentSuccessMail;
 use App\Repositories\SubscriptionRepository;
 
-class PayFastAPIController extends AppBaseController
+class PayfastAPIController extends AppBaseController
 {
     private $subscriptionRepository;
 
