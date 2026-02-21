@@ -1432,7 +1432,7 @@ if (!function_exists('getDefaultLanguageId')) {
 
         // Last fallback to first active language
         $firstLang = Language::where('status', 1)->first();
-        return $firstLang;
+        return $firstLang ? $firstLang->id : null;
     }
 }
 
