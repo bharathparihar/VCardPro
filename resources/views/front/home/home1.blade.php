@@ -14,7 +14,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 text-lg-start text-center mb-lg-0 mb-md-5 mb-4">
                     <div class="hero-content">
-                        <h1 class="text-black mb-2">{{ $setting['home_page_title'] }}</h1>
+                        <h1 class="text-black mb-2">{{ $setting['home_page_title'] ?? 'VCardPro' }}</h1>
                         <p class="text-gray-100 fs-18 mb-40 ">
                             {{ $setting['sub_text'] ?? '' }}
                         </p>
@@ -538,22 +538,22 @@
                                 <i class="fa-solid fa-location-dot icon-purpul"></i>
                             </div>
                             <p class="address-text text-secondary mb-0">
-                                {{ $setting['address'] }}
+                                {{ $setting['address'] ?? '' }}
                             </p>
                         </div>
                         <div class="d-flex align-items-center contact-info__block">
                             <div class="contact-icon fs-2 d-flex align-items-center justify-content-center">
                                 <i class="fa-solid fa-at icon-purpul"></i>
                             </div>
-                            <a href="mailto:{{ $setting['email'] }}"
-                                class="text-decoration-none text-secondary">{{ $setting['email'] }}</a>
+                            <a href="mailto:{{ $setting['email'] ?? '' }}"
+                                class="text-decoration-none text-secondary">{{ $setting['email'] ?? '' }}</a>
                         </div>
                         <div class="d-flex align-items-center contact-info__block">
                             <div class="contact-icon fs-2 d-flex align-items-center justify-content-center">
                                 <i class="fa-solid fa-phone icon-purpul"></i>
                             </div>
-                            <a href=" tel:{{ $setting['phone'] }}"
-                                class="text-decoration-none text-secondary" dir="ltr">{{ '+' . $setting['prefix_code'] . ' ' . $setting['phone'] }}</a>
+                            <a href=" tel:{{ $setting['phone'] ?? '' }}"
+                                class="text-decoration-none text-secondary" dir="ltr">{{ '+' . ($setting['prefix_code'] ?? '') . ' ' . ($setting['phone'] ?? '') }}</a>
                         </div>
                     </div>
                 </div>

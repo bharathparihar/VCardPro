@@ -54,6 +54,15 @@ done
 
 php -d memory_limit=-1 artisan migrate --force
 
+# Seed the database if it's empty (specifically checking for settings)
+if php artisan db:show > /dev/null 2>&1; then
+    SETTINGS_COUNT=$(php -r 'try { include "vendor/autoload.php"; $app = include "bootstrap/app.php"; $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap(); echo Illuminate\Support\Facades\DB::table("settings")->count(); } catch (\Exception $e) { echo "0"; }')
+    if [ "$SETTINGS_COUNT" = "0" ]; then
+        echo "Database is empty. Seeding..."
+        php artisan db:seed --force
+    fi
+fi
+
 # Now run optimizations at runtime
 echo "Running optimizations..."
 php artisan package:discover --ansi
