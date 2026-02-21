@@ -28,6 +28,9 @@ class TrialPlanSeeder extends Seeder
                 'is_default' => 1,
                 'trial_days' => 7,
                 'no_of_vcards' => 7,
+                'custom_vcard_number' => 1,
+                'custom_vcard_price' => 0,
+                'custom_select' => 0,
             ];
 
             $plan = Plan::create($input);

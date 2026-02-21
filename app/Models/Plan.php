@@ -76,6 +76,8 @@ class Plan extends Model
         'status',
         'custom_select',
         'no_of_whatsapp_store',
+        'custom_vcard_number',
+        'custom_vcard_price',
     ];
 
     protected $casts = [
