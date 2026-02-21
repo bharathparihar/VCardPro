@@ -54,13 +54,22 @@ done
 
 php -d memory_limit=-1 artisan migrate --force
 
-# Seed the database if it's empty (specifically checking for settings)
+# Robust check if database needs seeding (check for users)
 if php artisan db:show > /dev/null 2>&1; then
-    SETTINGS_COUNT=$(php -r 'try { include "vendor/autoload.php"; $app = include "bootstrap/app.php"; $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap(); echo Illuminate\Support\Facades\DB::table("settings")->count(); } catch (\Exception $e) { echo "0"; }')
-    if [ "$SETTINGS_COUNT" = "0" ]; then
-        echo "Database is empty. Seeding..."
+    USER_COUNT=$(php artisan tinker --execute="echo \App\Models\User::count();" 2>/dev/null | grep -oE '[0-9]+' | tail -n 1)
+    if [ -z "$USER_COUNT" ] || [ "$USER_COUNT" = "0" ]; then
+        echo "Database appears empty (User count: $USER_COUNT). Seeding..."
         php artisan db:seed --force
+    else
+        echo "Database already has $USER_COUNT users. Skipping seed."
     fi
+fi
+
+# Allow forced credential reset via environment variable
+if [ "$FORCE_UPDATE_CREDENTIALS" = "true" ]; then
+    echo "FORCE_UPDATE_CREDENTIALS is true. Updating admin users..."
+    php -d memory_limit=-1 artisan db:seed --class=DefaultUserSeeder --force
+    php -d memory_limit=-1 artisan db:seed --class=DefaultRoleSeeder --force
 fi
 
 # Now run optimizations at runtime

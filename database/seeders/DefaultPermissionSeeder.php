@@ -43,7 +43,7 @@ class DefaultPermissionSeeder extends Seeder
             ],
         ];
         foreach ($permissions as $permission) {
-            Permission::create($permission);
+            Permission::firstOrCreate(['name' => $permission['name']], $permission);
         }
     }
 }

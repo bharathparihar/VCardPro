@@ -34,7 +34,7 @@ class DefaultRoleSeeder extends Seeder
         ];
 
         foreach ($roles as $role) {
-            $role = Role::create($role);
+            Role::firstOrCreate(['name' => $role['name']], $role);
         }
 
         /** @var Role $superAdminRole */
