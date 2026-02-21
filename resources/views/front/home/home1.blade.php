@@ -182,10 +182,10 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="card-desc ps-lg-0 ps-md-4">
                             <h3 class="card-title fs-20 fw-6 mb-3">
-                                {{ $aboutUS[0]['title'] }}
+                                {{ $aboutUS[0]['title'] ?? '' }}
                             </h3>
                             <p class="card-text text-gray-100">
-                                {!! nl2br(e($aboutUS[0]['description'])) !!}
+                                {!! nl2br(e($aboutUS[0]['description'] ?? '')) !!}
                             </p>
                         </div>
                     </div>
@@ -196,10 +196,10 @@
                     <div class="col-lg-6 col-md-6 pe-lg-0 pe-md-4">
                         <div class="card-desc">
                             <h3 class="card-title fs-20 fw-6 mb-3">
-                                {{ $aboutUS[1]['title'] }}
+                                {{ $aboutUS[1]['title'] ?? '' }}
                             </h3>
                             <p class="card-text text-gray-100">
-                                {!! nl2br(e($aboutUS[1]['description'])) !!}
+                                {!! nl2br(e($aboutUS[1]['description'] ?? '')) !!}
                             </p>
                         </div>
                     </div>
@@ -224,10 +224,10 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="card-desc ps-lg-0 ps-md-4">
                             <h3 class="card-title fs-20 fw-6 mb-3">
-                                {{ $aboutUS[2]['title'] }}
+                                {{ $aboutUS[2]['title'] ?? '' }}
                             </h3>
                             <p class="card-text text-gray-100">
-                                {!! nl2br(e($aboutUS[2]['description'])) !!}
+                                {!! nl2br(e($aboutUS[2]['description'] ?? '')) !!}
                             </p>
                         </div>
                     </div>
