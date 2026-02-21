@@ -7,6 +7,21 @@ if [ -n "$APP_URL" ] && ! echo "$APP_URL" | grep -q "://"; then
     export APP_URL="https://$APP_URL"
     echo "Fixed APP_URL: $APP_URL"
 fi
+
+# Wait for Neon DB to wake up
+echo "Waiting for database connection..."
+max_retries=5
+count=0
+while [ $count -lt $max_retries ]; do
+    if php artisan db:monitor --path; then
+        echo "Database is ready!"
+        break
+    fi
+    echo "Database not ready yet... waiting 5s (Attempt $((count+1))/$max_retries)"
+    sleep 5
+    count=$((count+1))
+done
+
 php -d memory_limit=-1 artisan migrate --force
 
 # Now run optimizations at runtime
