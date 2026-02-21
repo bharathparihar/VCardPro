@@ -12,6 +12,13 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
+# Mark as installed if database is ready
+touch /var/www/html/storage/installed
+
+# Ensure permissions are correct for Apache after Artisan might have created files as root
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
 # Start Apache
 echo "Starting Apache..."
 exec apache2-foreground

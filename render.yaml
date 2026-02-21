@@ -14,7 +14,15 @@ services:
       - key: APP_ENV
         value: production
       - key: APP_URL
-        sync: false
+        fromService:
+          type: web
+          name: vcards
+          property: host
+      - key: APP_DOMAIN
+        fromService:
+          type: web
+          name: vcards
+          property: host
       - key: LOG_CHANNEL
         value: stderr
       - key: DB_CONNECTION
