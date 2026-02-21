@@ -43,6 +43,10 @@ class Blog extends Model implements HasMedia
         self::DEACTIVATE => 'Deactivate',
     ];
 
+    protected $casts = [
+        'status' => 'integer',
+    ];
+
     protected $appends = ['blog_image',];
 
     public function getBlogImageAttribute(): string

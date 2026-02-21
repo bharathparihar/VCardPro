@@ -58,6 +58,10 @@ class ProductTransaction extends Model
         'status',
     ];
 
+    protected $casts = [
+        'status' => 'integer',
+    ];
+
     public function product(){
         return $this->belongsTo(Product::class);
     }
