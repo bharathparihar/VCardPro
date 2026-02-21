@@ -13,7 +13,11 @@ class AddOnController extends AppBaseController
 {
     public function index()
     {
-        \Artisan::call('migrate', ['--force' => true]);
+        try {
+            \Artisan::call('migrate', ['--force' => true]);
+        } catch (\Exception $e) {
+            \Log::error('AddOn migration failed: ' . $e->getMessage());
+        }
 
         return view('add-on.index');
     }

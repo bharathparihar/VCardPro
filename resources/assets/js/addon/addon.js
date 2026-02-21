@@ -82,7 +82,7 @@ listenClick('.disableModule', function (e) {
     e.preventDefault();
     let addOnId = $(e.currentTarget).attr('data-id');
     $.ajax({
-        url: route('addon.update', addOnId),
+        url: route('addOn.update', addOnId),
         type: "POST",
         data: {
             "id": addOnId

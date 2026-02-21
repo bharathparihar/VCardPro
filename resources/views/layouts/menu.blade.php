@@ -39,7 +39,7 @@
     </li>
 
     <li class="nav-item {{ Request::is('sadmin/add-on*') ? 'active' : '' }}">
-        <a class="nav-link  d-flex align-items-center py-3 gap-3" href="{{ route('addon.index') }}">
+        <a class="nav-link  d-flex align-items-center py-3 gap-3" href="{{ route('addOn.index') }}">
             <span class="aside-menu-icon"><i class="fa-solid fa-upload"></i></span>
             {{-- <span class="aside-menu-icon"><i class="fa-solid fa-upload icon-color-gray"></i></span> --}}
             <span class="aside-menu-title">{{ __('messages.addon.addon') }}</span>
