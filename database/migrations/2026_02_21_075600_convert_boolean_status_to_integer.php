@@ -18,6 +18,7 @@ return new class extends Migration
             'languages',
             'custom_pages',
             'whatsapp_stores',
+            'plans',
         ];
 
         foreach ($tables as $table) {
@@ -55,6 +56,7 @@ return new class extends Migration
             'languages',
             'custom_pages',
             'whatsapp_stores',
+            'plans',
         ];
 
         foreach ($tables as $table) {
