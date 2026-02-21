@@ -7,7 +7,7 @@ services:
     buildCommand: docker build -t vcards .
     envVars:
       - key: APP_KEY
-        sync: false
+        value: base64:0hoFoR/0aUmwbl+7bLPJESRwH/WUhKPJapEaEAvDfQ4=
       - key: APP_DEBUG
         value: true
       - key: APP_ENV
