@@ -146,9 +146,12 @@ if (!function_exists('getLogoUrl')) {
             $settings = Setting::all()->keyBy('key');
         }
 
-        $appLogo = $settings['app_logo'];
+        if (!empty($settings['app_logo'])) {
+            $appLogo = $settings['app_logo'];
+            return $appLogo->logo_url;
+        }
 
-        return $appLogo->logo_url;
+        return asset('assets/images/infyom-logo.png');
     }
 }
 
@@ -183,9 +186,12 @@ if (!function_exists('getFaviconUrl')) {
             $settings = Setting::all()->keyBy('key');
         }
 
-        $favicon = $settings['favicon'];
+        if (!empty($settings['favicon'])) {
+            $favicon = $settings['favicon'];
+            return $favicon->favicon_url;
+        }
 
-        return $favicon->favicon_url;
+        return asset('web/media/logos/favicon-infyom.png');
     }
 }
 
@@ -196,10 +202,10 @@ if (!function_exists('getVcardFavicon')) {
         if (empty($settings)) {
             $settings = Setting::all()->keyBy('key');
         }
-        $favicon = $settings['favicon'];
+        $favicon = $settings['favicon'] ?? null;
         return !empty($vcard->favicon_url)
             ? $vcard->favicon_url
-            : $favicon->favicon_url;
+            : ($favicon ? $favicon->favicon_url : asset('web/media/logos/favicon-infyom.png'));
     }
 }
 
@@ -1242,8 +1248,12 @@ if (!function_exists('getSuperAdminSettingValue')) {
             if (empty($settings)) {
                 $settings = Setting::all()->keyBy('key');
             }
-            return $settings[$key]->value;
+            if (isset($settings[$key])) {
+                return $settings[$key]->value;
+            }
+            return null;
         } catch (\Exception $e) {
+            return null;
         }
     }
 }

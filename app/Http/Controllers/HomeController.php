@@ -45,7 +45,32 @@ class HomeController extends AppBaseController
             $metas = $metas->toArray();
         }
 
-        $setting = Setting::pluck('value', 'key')->toArray();
+        $defaults = [
+            'app_name' => 'VCardPro',
+            'home_page_title' => 'VCardPro',
+            'sub_text' => '',
+            'address' => '',
+            'email' => '',
+            'phone' => '',
+            'prefix_code' => '',
+            'custom_css' => '',
+            'mobile_app_enable' => '0',
+            'website_link' => '',
+            'twitter_link' => '',
+            'facebook_link' => '',
+            'instagram_link' => '',
+            'youtube_link' => '',
+            'tumbir_link' => '',
+            'reddit_link' => '',
+            'linkedin_link' => '',
+            'whatsapp_link' => '',
+            'pinterest_link' => '',
+            'tiktok_link' => '',
+            'banner_enable' => '0',
+        ];
+
+        $setting = array_merge($defaults, Setting::pluck('value', 'key')->toArray());
+
         $customPageAll = CustomPage::where('status', '1')->get();
 
         $aboutUS = AboutUs::with('media')->get()->toArray();
