@@ -130,6 +130,7 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         'language' => 'string',
         'tenant_id' => 'string',
         'remember_token' => 'string',
+        'enable_two_factor_authentication' => 'integer',
     ];
 
     const LANGUAGES = [
