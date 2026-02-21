@@ -1,27 +1,25 @@
 #!/bin/sh
 set -e
 
-# Run migrations first
-echo "Running migrations..."
+# FORCE Laravel to use PostgreSQL and clear any old cached config
+echo "Initial cleanup..."
+export DB_CONNECTION=pgsql
+php artisan config:clear || true
+php artisan cache:clear || true
+
 if [ -n "$APP_URL" ] && ! echo "$APP_URL" | grep -q "://"; then
     export APP_URL="https://$APP_URL"
     echo "Fixed APP_URL: $APP_URL"
 fi
 
-if [ -n "$DATABASE_URL" ]; then
-    case "$DATABASE_URL" in
-        postgres://*|postgresql://*) export DB_CONNECTION=pgsql ;;
-        mysql://*) export DB_CONNECTION=mysql ;;
-    esac
-    echo "Detected DB_CONNECTION: $DB_CONNECTION"
-fi
+echo "Forcing DB_CONNECTION: $DB_CONNECTION"
 
 # Wait for DB to wake up
 echo "Waiting for database connection..."
 max_retries=10
 count=0
 while [ $count -lt $max_retries ]; do
-    if php artisan migrate:status > /dev/null 2>&1; then
+    if php artisan db:show > /dev/null 2>&1 || php artisan migrate:status > /dev/null 2>&1; then
         echo "Database is ready!"
         break
     fi
