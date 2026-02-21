@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CurrencySeeder::class);
         $this->call(CountriesSeeder::class);
         $this->call(TrialPlanSeeder::class);
+        $this->call(ExtraPlansSeeder::class);
         $this->call(DefaultUserSeeder::class);
         $this->call(DefaultPermissionSeeder::class);
         $this->call(DefaultRoleSeeder::class);
