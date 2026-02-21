@@ -29,12 +29,22 @@ class CustomDomainCheck
         }
 
         $domain = request()->getHost();
-        $appDomain = !empty(config('app.domain')) ? config('app.domain') : parse_url(config('app.url'), PHP_URL_HOST);
+        $appUrl = config('app.url');
+        $appDomain = config('app.domain');
+        
+        // Handle cases where APP_URL might not have a scheme in env
+        $parsedAppHost = parse_url($appUrl, PHP_URL_HOST) ?: $appUrl;
+        
         $requestAlias = request()->getRequestUri();
-        $requestAlias = str_replace("/", "", $requestAlias);
+        $requestAlias = trim($requestAlias, '/');
 
-        if ($appDomain != $domain && $domain != '127.0.0.1' && $domain != 'localhost') { // if not matched it means custom domain
-            $customDomain = CustomDomain::where('domain', request()->getHttpHost())->orWhere('domain', $domain)->where('is_active', 1)->first();
+        // If the current domain matches our configured app domain or host, it's NOT a custom domain
+        if ($domain == $appDomain || $domain == $parsedAppHost || $domain == '127.0.0.1' || $domain == 'localhost' || str_ends_with($domain, '.onrender.com')) {
+            return $next($request);
+        }
+        
+        // If we got here, it's potentially a custom domain
+        $customDomain = CustomDomain::where('domain', $domain)->where('is_active', 1)->first();
             if (!$customDomain) {
                 abort(404);
             }
@@ -52,7 +62,6 @@ class CustomDomainCheck
             if (!$aliasExistsForSameUser) {
                 abort(404);
             }
-        }
 
         return $next($request);
     }
